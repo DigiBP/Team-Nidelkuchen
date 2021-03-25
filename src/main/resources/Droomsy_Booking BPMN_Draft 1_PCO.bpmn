@@ -289,7 +289,6 @@
     <bpmn:sequenceFlow id="Flow_0scji5f" sourceRef="Activity_18xa9fo" targetRef="Activity_0rsqjfv" />
     <bpmn:sequenceFlow id="Flow_0tr898u" sourceRef="Activity_1ouce4k" targetRef="Activity_18xa9fo" />
     <bpmn:sequenceFlow id="Flow_044ghya" sourceRef="Activity_0b8avca" targetRef="Activity_1ouce4k" />
-    <bpmn:task id="Activity_0nm0wih" name="Test CS" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0ja35l8">
@@ -677,6 +676,9 @@
       <bpmndi:BPMNShape id="Participant_10duwtf_di" bpmnElement="Participant_10duwtf" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1680" height="245" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_10lqq58_di" bpmnElement="TextAnnotation_10lqq58">
+        <dc:Bounds x="1200" y="170" width="100" height="30" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ckl2qi_di" bpmnElement="Flow_1ckl2qi">
         <di:waypoint x="1580" y="230" />
         <di:waypoint x="1702" y="230" />
@@ -734,12 +736,9 @@
       <bpmndi:BPMNShape id="Event_1o82gys_di" bpmnElement="Event_1o82gys">
         <dc:Bounds x="1702" y="212" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_10lqq58_di" bpmnElement="TextAnnotation_10lqq58">
-        <dc:Bounds x="1210" y="140" width="100" height="30" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_0gmuhsc_di" bpmnElement="Association_0gmuhsc">
-        <di:waypoint x="1202" y="217" />
-        <di:waypoint x="1246" y="170" />
+        <di:waypoint x="1204" y="219" />
+        <di:waypoint x="1230" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1xrhhtz_di" bpmnElement="Participant_1xrhhtz" isHorizontal="true">
         <dc:Bounds x="160" y="340" width="1680" height="190" />
@@ -767,9 +766,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0b8avca_di" bpmnElement="Activity_0b8avca">
         <dc:Bounds x="560" y="400" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0nm0wih_di" bpmnElement="Activity_0nm0wih">
-        <dc:Bounds x="310" y="430" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0eealdh_di" bpmnElement="DataOutputAssociation_0eealdh">
         <di:waypoint x="1260" y="1490" />
