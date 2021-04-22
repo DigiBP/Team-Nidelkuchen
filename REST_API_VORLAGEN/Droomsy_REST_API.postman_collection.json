@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "4ba46625-48a7-41e8-82f1-0fbd9156310d",
+		"name": "Droomsy_REST_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://digibp.herokuapp.com/engine-rest/process-definition/key/Booking_Process/tenant-id/BP32/submit-form",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"businessKey\": \"bk_134_001\",\r\n\"userName\": \"roomking76\",\r\n\"geoLng\": \"8,32149\",\r\n\"geoLat\": \"47,22239\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "https://digibp.herokuapp.com/engine-rest/process-definition/key/Booking_Process/tenant-id/BP32/submit-form",
+					"protocol": "https",
+					"host": [
+						"digibp",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"process-definition",
+						"key",
+						"Booking_Process",
+						"tenant-id",
+						"BP32",
+						"submit-form"
+					]
+				},
+				"description": "Start BookingProcess"
+			},
+			"response": []
+		}
+	]
+}
