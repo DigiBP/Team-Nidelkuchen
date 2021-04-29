@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Room_Availability" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <decision id="Decision_BookableAssetList" name="List of bookable Assets">
+    <informationRequirement id="InformationRequirement_0uqhade">
+      <requiredDecision href="#Decision_UserSearchVariables" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1yhm9un">
+      <requiredInput href="#InputData_10skhk3" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0avxsp2">
+      <input id="InputClause_0caur4t" label="User Search Preference">
+        <inputExpression id="LiteralExpression_046xzsz" typeRef="string">
+          <text>userSearchPreference</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1yhxiv4" label="Asset and Features">
+        <inputExpression id="LiteralExpression_19vuv33" typeRef="string">
+          <text>assetAndFeatures</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1jv130e" label="Asset Availability">
+        <inputExpression id="LiteralExpression_0maty1m" typeRef="boolean">
+          <text>assetAvailability</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="List of bookable Assets" name="bookableAssets" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_153hdmb">
+          <text>"Hide","Show"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1pe5f49">
+        <description>Browsable booking options for the User</description>
+        <inputEntry id="UnaryTests_0skj6hz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00rg5vh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18rahf1">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1t7xqmv">
+          <text>"Show"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ju8wff">
+        <description>Options not available for the User according to the given preferences</description>
+        <inputEntry id="UnaryTests_1fqw8q6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uiszq6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06x9cl6">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wbru7l">
+          <text>"Hide"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01nrska">
+        <inputEntry id="UnaryTests_1jkjjzc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00ccf3d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n1ev1l">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11sg6ux">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_0dnp5qd" name="Asset Type" />
+  <inputData id="InputData_07hkysb" name="Asset Features" />
+  <inputData id="InputData_10skhk3" name="Available Assets" />
+  <inputData id="InputData_1uabx7h" name="Host&#10;Assets" />
+  <inputData id="InputData_0wvk51y" name="User Geo Location Data" />
+  <decision id="Decision_PriceRangeSelection" name="User &#10;Price Range Selection">
+    <informationRequirement id="InformationRequirement_154xh51">
+      <requiredInput href="#InputData_1uabx7h" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_02k13ck">
+      <input id="InputClause_09a9pzk" label="Price Minimum" biodi:width="192">
+        <inputExpression id="LiteralExpression_0z45rtx" typeRef="integer">
+          <text>priceMinimum</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_190gdy2" label="Price Maximum" biodi:width="192">
+        <inputExpression id="LiteralExpression_1mx0fne" typeRef="string">
+          <text>priceMaximum</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0uezqa1" label="Price Range" name="priceRange" typeRef="string" />
+      <rule id="DecisionRule_0ob1lar">
+        <description>Set as minimum price</description>
+        <inputEntry id="UnaryTests_185szas">
+          <text>&gt;0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_186g9ff">
+          <text>"empty"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07231xp">
+          <text>"priceMinimum"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05llgoi">
+        <description>Set maximum price</description>
+        <inputEntry id="UnaryTests_0fzo7ka">
+          <text>"empty"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qfwf04">
+          <text>"priceMaximum"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16atdgk">
+          <text>"priceMaximum"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kuclbd">
+        <description>Set price range with minimum and maximum price</description>
+        <inputEntry id="UnaryTests_1jh3f9a">
+          <text>&gt;0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02rb06e">
+          <text>&gt;"priceMinimum"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0l5orqu">
+          <text>["priceMinimum".. "priceMaximum"]</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05jmkd1">
+        <description>no price preference, no impact of price on bookable assets</description>
+        <inputEntry id="UnaryTests_1mssb29">
+          <text>"empty"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y7dwqu">
+          <text>"empty"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nt93gw">
+          <text>"priceRangeUndifiend"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <businessKnowledgeModel id="BusinessKnowledgeModel_18axwbq" name="Intelligence Data">
+    <knowledgeRequirement id="KnowledgeRequirement_0onao9s">
+      <requiredKnowledge href="#BusinessKnowledgeModel_0ks5x93" />
+    </knowledgeRequirement>
+  </businessKnowledgeModel>
+  <decision id="Decision_DateAndTimeSelection" name="User &#10;Date &#38; Time Selection">
+    <informationRequirement id="InformationRequirement_0anpbps">
+      <requiredInput href="#InputData_1uabx7h" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0fwruw6">
+      <input id="InputClause_1174bn4" label="Selected Start Date and Time">
+        <inputExpression id="LiteralExpression_1pjooe2" typeRef="date">
+          <text>selectedStartDateAndTime</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1y1f40o" label="Selected End Date and Time">
+        <inputExpression id="LiteralExpression_08xbeb2" typeRef="date">
+          <text>selectedEndDateAndTime</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0e3d38a" label="Match User Selection" name="matchUserSelection" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_0o0qmvk">
+          <text>"include","exclude","notification"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1ebax59">
+        <description>Use Start and Endtime as indicated by the user</description>
+        <inputEntry id="UnaryTests_0m4lg2w">
+          <text>&gt;=date and time("2021-04-25T00:00:00")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11vgdn8">
+          <text>&gt;"selectedStartDateAndTime"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hcpvxs">
+          <text>"userDateAndTimeSelection"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ifcy27">
+        <description>End Date and Time need to be after Start Date and Time</description>
+        <inputEntry id="UnaryTests_1ua99h2">
+          <text>&gt;=date and time("2021-04-25T00:00:00")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m3kf2f">
+          <text>&lt;="selectedStartDateAndTime"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1awhkad">
+          <text>"notification"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1h3wsh9">
+        <description>Start Date and Time can not be in the past</description>
+        <inputEntry id="UnaryTests_17b412j">
+          <text>&lt;=date and time("2021-04-25T00:00:00")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s1uzqr">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1t1gh0w">
+          <text>"notification"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ukpr9n">
+        <description>Please select Start Date and Time</description>
+        <inputEntry id="UnaryTests_15y5kff">
+          <text>"empty"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_064ybok">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1stnv8c">
+          <text>"notification"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08jzn17">
+        <description>Please select End Date and Time</description>
+        <inputEntry id="UnaryTests_18lxc7n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bft7kr">
+          <text>"empty"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qx7xq4">
+          <text>"notification"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_LocationSelection" name="User &#10;Location Selection">
+    <informationRequirement id="InformationRequirement_0kl7tyt">
+      <requiredInput href="#InputData_0wvk51y" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_19muo2d">
+      <requiredInput href="#InputData_1uabx7h" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_05g4kxp">
+      <input id="InputClause_19g66ff" label="User Geo Location">
+        <inputExpression id="LiteralExpression_077nrso" typeRef="boolean">
+          <text>userGeoLocation</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_09x37dw" label="User Location Preference">
+        <inputExpression id="LiteralExpression_1bbb60b" typeRef="boolean">
+          <text>userLocationPreference</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0t7awgn" label="User Location Selection" name="userLocationSelection" typeRef="string" />
+      <rule id="DecisionRule_0z6l2l9">
+        <description>Use User Location Selection</description>
+        <inputEntry id="UnaryTests_1ld2n2x">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gjeyh2">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1sp5n7g">
+          <text>"UserLocationPreference"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bhco68">
+        <description>Use User Geo Location</description>
+        <inputEntry id="UnaryTests_15c9m5i">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0htfq5u">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1evhvmn">
+          <text>"UserGeoLocation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0p2b86h">
+        <description>Use User Preference</description>
+        <inputEntry id="UnaryTests_1ezqof3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cexqgl">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bcl74w">
+          <text>"UserLocationPreference"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0a23cgf">
+        <description>List all available options</description>
+        <inputEntry id="UnaryTests_1eezmjw">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oobhq7">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1d165qa">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_RankingBookableAssets" name="Ranking bookable Assets">
+    <informationRequirement id="InformationRequirement_0eaku1h">
+      <requiredDecision href="#Decision_BookableAssetList" />
+    </informationRequirement>
+    <knowledgeRequirement id="KnowledgeRequirement_067qjdg">
+      <requiredKnowledge href="#BusinessKnowledgeModel_0c9fxj0" />
+    </knowledgeRequirement>
+    <knowledgeRequirement id="KnowledgeRequirement_0uxthdi">
+      <requiredKnowledge href="#BusinessKnowledgeModel_0qh2b54" />
+    </knowledgeRequirement>
+  </decision>
+  <businessKnowledgeModel id="BusinessKnowledgeModel_0c9fxj0" name="Distance Algorythm" />
+  <businessKnowledgeModel id="BusinessKnowledgeModel_0qh2b54" name="Preference Algorythm">
+    <knowledgeRequirement id="KnowledgeRequirement_1gc602q">
+      <requiredKnowledge href="#BusinessKnowledgeModel_18axwbq" />
+    </knowledgeRequirement>
+  </businessKnowledgeModel>
+  <businessKnowledgeModel id="BusinessKnowledgeModel_0ks5x93" name="Historical Use Data" />
+  <knowledgeSource id="KnowledgeSource_0hp31d6" name="Asset DB">
+    <authorityRequirement id="AuthorityRequirement_1iu41g9">
+      <requiredInput href="#InputData_0dnp5qd" />
+    </authorityRequirement>
+    <authorityRequirement id="AuthorityRequirement_1pkpflt">
+      <requiredInput href="#InputData_0n1xa31" />
+    </authorityRequirement>
+    <authorityRequirement id="AuthorityRequirement_0t0ppdl">
+      <requiredInput href="#InputData_07hkysb" />
+    </authorityRequirement>
+    <authorityRequirement id="AuthorityRequirement_0m8s46y">
+      <requiredInput href="#InputData_0wdzwyd" />
+    </authorityRequirement>
+    <authorityRequirement id="AuthorityRequirement_1ijpj54">
+      <requiredInput href="#InputData_10skhk3" />
+    </authorityRequirement>
+    <authorityRequirement id="AuthorityRequirement_08gq21r">
+      <requiredInput href="#InputData_10skhk3" />
+    </authorityRequirement>
+  </knowledgeSource>
+  <inputData id="InputData_0n1xa31" name="Asset Price" />
+  <inputData id="InputData_0wdzwyd" name="Asset Location" />
+  <decision id="Decision_FeatureSelection" name="User&#10;Features Selection">
+    <informationRequirement id="InformationRequirement_1jrcoh9">
+      <requiredInput href="#InputData_1uabx7h" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1k2gu7j">
+      <input id="InputClause_0glpkpv" label="User Asset Selection" biodi:width="192">
+        <inputExpression id="LiteralExpression_06uh0aw" typeRef="string">
+          <text>userAssetSelection</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1ykq8k6">
+          <text>"Single","Double","JuniorSuite","Suite","Parking"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_04baqq7" label="Room">
+        <inputExpression id="LiteralExpression_0yl7hyd" typeRef="boolean">
+          <text>Room</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0jap1ov" label="Desk">
+        <inputExpression id="LiteralExpression_1r5ofdw" typeRef="boolean">
+          <text>Desk</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1fpe28d" label="Bed">
+        <inputExpression id="LiteralExpression_14ye3ji" typeRef="boolean">
+          <text>Bed</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0lwb87f" label="Bathroom">
+        <inputExpression id="LiteralExpression_0119l4l" typeRef="boolean">
+          <text>Bathroom</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_06g3ru0" label="Gym">
+        <inputExpression id="LiteralExpression_03ilyu8" typeRef="boolean">
+          <text>Gym</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1kefy09" label="Spa">
+        <inputExpression id="LiteralExpression_0m219fg" typeRef="boolean">
+          <text>Spa</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0ogwsrq" label="Parking">
+        <inputExpression id="LiteralExpression_0j3jj97" typeRef="boolean">
+          <text>Parking</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1y95plf" label="User Featuer Selection" name="UserFeatureSelection" typeRef="string" />
+      <rule id="DecisionRule_1u6v34q">
+        <inputEntry id="UnaryTests_1cavqqo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17fybx8">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d4jsbk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17pegjg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xx1hp3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03bu1mh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fnqu6h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s4xlks">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o3v3o4">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1314v0c">
+        <description>Desk as selected Features</description>
+        <inputEntry id="UnaryTests_07xm2ay">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19ywzt3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_139enbm">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19vsnq8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05dv5l2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ynpd01">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1obnlpi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04sfr55">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uqi0qi">
+          <text>"DeskFeature"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mch24y">
+        <description>Bed as selected Features</description>
+        <inputEntry id="UnaryTests_1pp56vc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_100lar8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12mcajn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ovx8mv">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qpanr7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1avc8dt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dz6du9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ix92hw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1r1xdaz">
+          <text>"BedFeature"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02i5c5k">
+        <description>Bathroom as selected Feature</description>
+        <inputEntry id="UnaryTests_1hms2th">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e148ti">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r3nn3j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kv0hrd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jpht7c">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s58267">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mjuorr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v182uq">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1f55l0t">
+          <text>"BathroomFeature"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02djgk0">
+        <description>Gym as selected Feature</description>
+        <inputEntry id="UnaryTests_1bi082d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nd8m6t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03dk6a7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1usleav">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ed5j26">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q0veay">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m7w40f">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19tinkb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0114icq">
+          <text>"GymFeature"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0u6ogmq">
+        <description>Spa as selected Feature</description>
+        <inputEntry id="UnaryTests_0fh1hic">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kr8f7l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ydhhkr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jdbfmg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ratwql">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_003183n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01gqcee">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1suocr8">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d9ngtq">
+          <text>"SpaFeature"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0x2tlyk">
+        <description>Parking as selected Feature</description>
+        <inputEntry id="UnaryTests_0jlch94">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01o68f5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e2tf87">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15619ky">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fmbb72">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kjym02">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13y9kv7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s68der">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1c0l7i1">
+          <text>"ParkingFeature"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_UserSearchVariables" name="What ?&#10;User Search Variables">
+    <informationRequirement id="InformationRequirement_1hh3i0g">
+      <requiredDecision href="#Decision_PriceRangeSelection" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1h455rv">
+      <requiredDecision href="#Decision_FeatureSelection" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0almcqt">
+      <requiredDecision href="#Decision_DateAndTimeSelection" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0p3j5z5">
+      <requiredDecision href="#Decision_LocationSelection" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1qxis4k" hitPolicy="COLLECT">
+      <input id="InputClause_1djneo1" label="User Location" biodi:width="192">
+        <inputExpression id="LiteralExpression_1uo5n1s" typeRef="string">
+          <text>userLocationSelection</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_039qf1e">
+          <text>"locationCritera"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1du2415" label="User Date &#38; Time Selection">
+        <inputExpression id="LiteralExpression_0f3iqfz" typeRef="string">
+          <text>userDateAndTimeSelection</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1pggron">
+          <text>"UserDateAndTimeSelection"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_18yy8ol" label="User Asset Selection">
+        <inputExpression id="LiteralExpression_1j44vky" typeRef="string">
+          <text>userAssetSelection</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0xjxpfh">
+          <text>"Single","Double","JuniorSuite","Suite","Parking"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_06wrfqm" label="Price Range" biodi:width="192">
+        <inputExpression id="LiteralExpression_0r85ym9" typeRef="integer">
+          <text>priceRange</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1lhhoeu" label="Feature Selection">
+        <inputExpression id="LiteralExpression_05m2t8y" typeRef="string">
+          <text>featrueSelection</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0gzxltu" label="User Preference" name="userPreference" typeRef="string" />
+      <rule id="DecisionRule_0phnc4d">
+        <description>User Search Preference</description>
+        <inputEntry id="UnaryTests_00ha90i">
+          <text>"userLocationPreference","userGeoLocation"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17sap44">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ovj1cy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f1d4yy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03o12am">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hf4do1">
+          <text>"userLocationSelection"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1lo2okw">
+        <inputEntry id="UnaryTests_1vze9cr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xcwr5y">
+          <text>"userDateAndTimeSelection"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ooxc7m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mfp7fy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_004qcjm">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07ovfsg">
+          <text>"userDateAndTimeSelection"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0q4m5b2">
+        <inputEntry id="UnaryTests_1sr5z47">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h91tj2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hl49l2">
+          <text>"userAssetSelection"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mw5y9r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00ey1z9">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1c69rcz">
+          <text>"userAssetSelection"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1hxlh3h">
+        <inputEntry id="UnaryTests_0vvboea">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1thw4je">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dfw21r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f8l0hq">
+          <text>"minimumPrice", "maximumPrice", "priceRange"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0agjiij">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1f4j0x3">
+          <text>"userPriceRangeSelection"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0l9p1ju">
+        <inputEntry id="UnaryTests_1wg9ay8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rzn872">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t3tpnc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_192kw6l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vu8a6c">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0trhe1q">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04o3von">
+        <inputEntry id="UnaryTests_1q7rgua">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vetjvz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0summl6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rnqx0i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0avdsdg">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p87xrm">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_BookableAssetList">
+        <dc:Bounds height="80" width="180" x="730" y="252" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1qlwruv" dmnElementRef="InputData_0dnp5qd">
+        <dc:Bounds height="45" width="125" x="1637" y="329" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1dnflxz" dmnElementRef="InputData_07hkysb">
+        <dc:Bounds height="45" width="125" x="1687" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_14ufbe6" dmnElementRef="InputData_10skhk3">
+        <dc:Bounds height="45" width="125" x="1267" y="269" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0d7jzfm" dmnElementRef="InputData_1uabx7h">
+        <dc:Bounds height="45" width="125" x="757" y="797" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1gp32gc" dmnElementRef="InformationRequirement_1hh3i0g">
+        <di:waypoint x="930" y="560" />
+        <di:waypoint x="838" y="500" />
+        <di:waypoint x="838" y="480" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1ndfjaa" dmnElementRef="InputData_0wvk51y">
+        <dc:Bounds height="45" width="125" x="237" y="577" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_01d0vso" dmnElementRef="InformationRequirement_0kl7tyt">
+        <di:waypoint x="362" y="600" />
+        <di:waypoint x="390" y="600" />
+        <di:waypoint x="410" y="600" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0yen40k" dmnElementRef="Decision_PriceRangeSelection">
+        <dc:Bounds height="80" width="180" x="840" y="560" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1nd8f1f" dmnElementRef="BusinessKnowledgeModel_18axwbq">
+        <dc:Bounds height="46" width="135" x="332" y="127" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1h0jcpo" dmnElementRef="KnowledgeRequirement_1gc602q">
+        <di:waypoint x="467" y="150" />
+        <di:waypoint x="523" y="150" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_154c2q5" dmnElementRef="Decision_DateAndTimeSelection">
+        <dc:Bounds height="80" width="180" x="620" y="560" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1wyqif0" dmnElementRef="Decision_LocationSelection">
+        <dc:Bounds height="80" width="180" x="410" y="560" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1j8kz28" dmnElementRef="Decision_RankingBookableAssets">
+        <dc:Bounds height="80" width="180" x="730" y="110" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1uv1siz" dmnElementRef="BusinessKnowledgeModel_0c9fxj0">
+        <dc:Bounds height="46" width="135" x="1012" y="127" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1gq8dca" dmnElementRef="KnowledgeRequirement_067qjdg">
+        <di:waypoint x="1012" y="150" />
+        <di:waypoint x="910" y="150" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_028rkbw" dmnElementRef="BusinessKnowledgeModel_0qh2b54">
+        <dc:Bounds height="46" width="135" x="523" y="127" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0n32d13" dmnElementRef="KnowledgeRequirement_0uxthdi">
+        <di:waypoint x="658" y="150" />
+        <di:waypoint x="730" y="150" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_08tzm95" dmnElementRef="InformationRequirement_0eaku1h">
+        <di:waypoint x="820" y="252" />
+        <di:waypoint x="820" y="210" />
+        <di:waypoint x="820" y="190" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1u91qqs" dmnElementRef="BusinessKnowledgeModel_0ks5x93">
+        <dc:Bounds height="46" width="135" x="152" y="127" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_123xzly" dmnElementRef="KnowledgeRequirement_0onao9s">
+        <di:waypoint x="287" y="150" />
+        <di:waypoint x="332" y="150" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1c8nyyl" dmnElementRef="InformationRequirement_0anpbps">
+        <di:waypoint x="820" y="797" />
+        <di:waypoint x="710" y="660" />
+        <di:waypoint x="710" y="640" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1s0jgt7" dmnElementRef="InformationRequirement_19muo2d">
+        <di:waypoint x="820" y="797" />
+        <di:waypoint x="500" y="660" />
+        <di:waypoint x="500" y="640" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0n2udh1" dmnElementRef="KnowledgeSource_0hp31d6">
+        <dc:Bounds height="63" width="100" x="1470" y="260" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_01w2m65" dmnElementRef="AuthorityRequirement_1iu41g9">
+        <di:waypoint x="1700" y="329" />
+        <di:waypoint x="1570" y="310" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0zdx0hm" dmnElementRef="InputData_0n1xa31">
+        <dc:Bounds height="45" width="125" x="1687" y="277" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_13s83iv" dmnElementRef="AuthorityRequirement_1pkpflt">
+        <di:waypoint x="1687" y="296" />
+        <di:waypoint x="1570" y="289" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_08a5w9h" dmnElementRef="AuthorityRequirement_0t0ppdl">
+        <di:waypoint x="1687" y="268" />
+        <di:waypoint x="1570" y="262" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_035kidu" dmnElementRef="InputData_0wdzwyd">
+        <dc:Bounds height="45" width="125" x="1638" y="177" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0cpv532" dmnElementRef="AuthorityRequirement_0m8s46y">
+        <di:waypoint x="1638" y="222" />
+        <di:waypoint x="1526" y="260" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1y25of5" dmnElementRef="AuthorityRequirement_1ijpj54">
+        <di:waypoint x="1392" y="290" />
+        <di:waypoint x="1470" y="291" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_19ittqp" dmnElementRef="AuthorityRequirement_08gq21r">
+        <di:waypoint x="1392" y="290" />
+        <di:waypoint x="1470" y="291" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1jhvlcv" dmnElementRef="Decision_FeatureSelection">
+        <dc:Bounds height="80" width="180" x="1050" y="560" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1bgbngp" dmnElementRef="Decision_UserSearchVariables">
+        <dc:Bounds height="80" width="180" x="730" y="400" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0m217na" dmnElementRef="InformationRequirement_0uqhade">
+        <di:waypoint x="820" y="400" />
+        <di:waypoint x="820" y="352" />
+        <di:waypoint x="820" y="332" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1fgnsha" dmnElementRef="InformationRequirement_1h455rv">
+        <di:waypoint x="1140" y="560" />
+        <di:waypoint x="874" y="500" />
+        <di:waypoint x="874" y="480" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_05i24mc" dmnElementRef="InformationRequirement_1jrcoh9">
+        <di:waypoint x="820" y="797" />
+        <di:waypoint x="1140" y="660" />
+        <di:waypoint x="1140" y="640" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_006ntl7" dmnElementRef="InformationRequirement_154xh51">
+        <di:waypoint x="820" y="797" />
+        <di:waypoint x="930" y="660" />
+        <di:waypoint x="930" y="640" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1gbw8su" dmnElementRef="InformationRequirement_0almcqt">
+        <di:waypoint x="710" y="560" />
+        <di:waypoint x="802" y="500" />
+        <di:waypoint x="802" y="480" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0mlswxr" dmnElementRef="InformationRequirement_0p3j5z5">
+        <di:waypoint x="500" y="560" />
+        <di:waypoint x="766" y="500" />
+        <di:waypoint x="766" y="480" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_17xmy6t" dmnElementRef="InformationRequirement_1yhm9un">
+        <di:waypoint x="1267" y="292" />
+        <di:waypoint x="930" y="292" />
+        <di:waypoint x="910" y="292" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
