@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0aww3mm" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <decision id="Decision_0fhe62t" name="Asset Price">
+    <decisionTable id="DecisionTable_1irm1r9">
+      <input id="Input_1" label="User Asset Selection">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>userAssetSelection</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_093abit" label="Asset Price">
+        <inputExpression id="LiteralExpression_06lanlw" typeRef="string">
+          <text>assetPrice</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_08fnljr" label="Asset Booking Duration" biodi:width="192">
+        <inputExpression id="LiteralExpression_1e6yybc" typeRef="string">
+          <text>assetBookingDuration</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Price Asset Booking" name="priceAssetBooking" typeRef="string" />
+      <rule id="DecisionRule_0fzaqvl">
+        <description>Price the Guest needs to pay to use the asset for the required time</description>
+        <inputEntry id="UnaryTests_1ncccfm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_048zfxk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sm9n2m">
+          <text>="assetEndDateAndTime"-"assetStartDateAndTime"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1y95cbf">
+          <text>="assetPrice"x"assetBookingDuration"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_1uk16jk" name="Feature Price">
+    <decisionTable id="DecisionTable_11wsozv" hitPolicy="COLLECT" aggregation="SUM">
+      <input id="InputClause_005evj3" label="Feature Selection">
+        <inputExpression id="LiteralExpression_1x6vt8c" typeRef="string">
+          <text>featureSelection</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1isequy">
+          <text>"Bed","Bathroom","Parking","Gym","Spa"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_0mrhxtx" label="Price Feature Booking" name="priceFeatureBooking" typeRef="string">
+        <outputValues id="UnaryTests_1yx8w5n">
+          <text>"bedPrice","bathroomPrice","parkingPrice","gymPrice","spaPrice"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_11wac9t">
+        <description>Add bed price to final price</description>
+        <inputEntry id="UnaryTests_0tmoa0y">
+          <text>"Bed"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lqod2v">
+          <text>"bedPrice"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10jpbbu">
+        <description>Add bathroom price to final price</description>
+        <inputEntry id="UnaryTests_07flzc8">
+          <text>"Bathroom"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0y8hfau">
+          <text>"bathroomPrice"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wuduer">
+        <description>Add parking price to final price</description>
+        <inputEntry id="UnaryTests_0o6130w">
+          <text>"Parking"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15j5cbw">
+          <text>"parkingPrice"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_153jkn8">
+        <description>Add gym price to final price</description>
+        <inputEntry id="UnaryTests_0u0lhfz">
+          <text>"Gym"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04iprj5">
+          <text>"gymPrice"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0btvrh9">
+        <description>Add spa price to final price</description>
+        <inputEntry id="UnaryTests_0r8etha">
+          <text>"Spa"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05u8vxr">
+          <text>"spaPrice"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_1rvgyke" name="Calculated Price">
+    <informationRequirement id="InformationRequirement_1gdk0e2">
+      <requiredDecision href="#Decision_1uk16jk" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1xvuvbp">
+      <requiredDecision href="#Decision_0fhe62t" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0j2cygi">
+      <input id="InputClause_1e06d0b" label="Booking Price Calculation">
+        <inputExpression id="LiteralExpression_0sfamhg" typeRef="string">
+          <text>priceAssetBooking</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0rmfd81">
+          <text>"assetBookingPrice","featureBookingPrice"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_18uq9vi" label="Final Booking Price" name="finalBookingPrice" typeRef="string">
+        <outputValues id="UnaryTests_15h2qje">
+          <text>"finalBookingPrice"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_191tsqe">
+        <inputEntry id="UnaryTests_0vtp0vm">
+          <text>="assetBookingPrice"+"featureBookingPrice"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qn2umf">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_0fhe62t">
+        <dc:Bounds height="80" width="180" x="160" y="230" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1t8esrs" dmnElementRef="Decision_1uk16jk">
+        <dc:Bounds height="80" width="180" x="360" y="230" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_187ovc0" dmnElementRef="InformationRequirement_1gdk0e2">
+        <di:waypoint x="450" y="230" />
+        <di:waypoint x="380" y="180" />
+        <di:waypoint x="380" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1aii3cr" dmnElementRef="InformationRequirement_1xvuvbp">
+        <di:waypoint x="250" y="230" />
+        <di:waypoint x="320" y="180" />
+        <di:waypoint x="320" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1nfg8v0" dmnElementRef="Decision_1rvgyke">
+        <dc:Bounds height="80" width="180" x="260" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
