@@ -21,7 +21,7 @@
 					"raw": "{\r\n\"businessKey\": \"bk_134_001\",\r\n\"userName\": \"roomking76\",\r\n\"geoLng\": \"8,32149\",\r\n\"geoLat\": \"47,22239\"\r\n\r\n}"
 				},
 				"url": {
-					"raw": "https://digibp.herokuapp.com/engine-rest/process-definition/key/Booking_Process/tenant-id/BP32/submit-form",
+					"raw": "https://digibp.herokuapp.com/engine-rest/process-definition/key/Booking_Process/submit-form",
 					"protocol": "https",
 					"host": [
 						"digibp",
@@ -33,8 +33,6 @@
 						"process-definition",
 						"key",
 						"Booking_Process",
-						"tenant-id",
-						"BP32",
 						"submit-form"
 					]
 				},
