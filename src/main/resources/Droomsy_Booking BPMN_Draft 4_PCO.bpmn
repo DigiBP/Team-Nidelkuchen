@@ -37,10 +37,10 @@
         <bpmn:flowNodeRef>Activity_19o56ut</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0avhzl1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0msas5u</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0kzn9g0</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0ubo7e5</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0pfbe45</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0kzn9g0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0zt4sme</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0ubo7e5</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:task id="Activity_0hk485y" name="receive selection of booking features">
@@ -144,7 +144,15 @@
       <bpmn:outgoing>Flow_06m91l7</bpmn:outgoing>
       <bpmn:outgoing>Flow_1138mcb</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_0kzn9g0" name="get user search variables">
+    <bpmn:receiveTask id="Activity_0pfbe45" name="user change / specify search variables">
+      <bpmn:incoming>Flow_1ghgbok</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nbljhp</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1mvfqam">
+        <bpmn:targetRef>DataStoreReference_0y97w8u</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:receiveTask>
+    <bpmn:sequenceFlow id="Flow_1nlwy25" sourceRef="Gateway_1g3qfvp" targetRef="Activity_1fwzxdh" />
+    <bpmn:task id="Activity_0kzn9g0" name="get user search variables">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="Decision_UserSearchVariables">
@@ -155,8 +163,18 @@
       <bpmn:incoming>Flow_1f3jc8x</bpmn:incoming>
       <bpmn:incoming>Flow_1138mcb</bpmn:incoming>
       <bpmn:outgoing>Flow_1a8r7ul</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0ubo7e5" name="match user search variables with assets">
+    </bpmn:task>
+    <bpmn:task id="Activity_0zt4sme" name="display 7 best matching assets on map">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="Input_0a206lj" />
+          <camunda:outputParameter name="Output_042a2cu" />
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_05k2hgq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0g6iafb</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:manualTask id="Activity_0ubo7e5" name="match user search variables with assets">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="Input_11ubkvo" />
@@ -168,25 +186,7 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1a8r7ul</bpmn:incoming>
       <bpmn:outgoing>Flow_05k2hgq</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:receiveTask id="Activity_0pfbe45" name="user change / specify search variables">
-      <bpmn:incoming>Flow_1ghgbok</bpmn:incoming>
-      <bpmn:outgoing>Flow_1nbljhp</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_1mvfqam">
-        <bpmn:targetRef>DataStoreReference_0y97w8u</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:receiveTask>
-    <bpmn:sendTask id="Activity_0zt4sme" name="display 7 best matching assets on map">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="Input_0a206lj" />
-          <camunda:outputParameter name="Output_042a2cu" />
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_05k2hgq</bpmn:incoming>
-      <bpmn:outgoing>Flow_0g6iafb</bpmn:outgoing>
-    </bpmn:sendTask>
-    <bpmn:sequenceFlow id="Flow_1nlwy25" sourceRef="Gateway_1g3qfvp" targetRef="Activity_1fwzxdh" />
+    </bpmn:manualTask>
   </bpmn:process>
   <bpmn:message id="Message_0frz8ya" name="Message_057h59g" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -344,17 +344,17 @@
           <dc:Bounds x="1113" y="462" width="57" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0gw2gva_di" bpmnElement="Activity_0kzn9g0">
-        <dc:Bounds x="340" y="390" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1uusi34_di" bpmnElement="Activity_0ubo7e5">
-        <dc:Bounds x="500" y="390" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1p0uu1n_di" bpmnElement="Activity_0pfbe45">
         <dc:Bounds x="970" y="390" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_08m8dhs_di" bpmnElement="Activity_0zt4sme">
+      <bpmndi:BPMNShape id="Activity_0egust5_di" bpmnElement="Activity_0kzn9g0">
+        <dc:Bounds x="340" y="390" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_03n2red_di" bpmnElement="Activity_0zt4sme">
         <dc:Bounds x="660" y="390" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1symkio_di" bpmnElement="Activity_0ubo7e5">
+        <dc:Bounds x="500" y="390" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_171jes8_di" bpmnElement="Participant_171jes8" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="3520" height="60" />
