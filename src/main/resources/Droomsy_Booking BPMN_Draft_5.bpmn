@@ -67,7 +67,7 @@
     <bpmn:startEvent id="Event_191ahqm" name="Customer opens APP">
       <bpmn:extensionElements>
         <camunda:formData businessKey="businessKey">
-          <camunda:formField id="businessKey" label="Business Key" type="string" />
+          <camunda:formField id="businessKey" label="Business Key" type="string" defaultValue="${strongUuidGenerator.getNextId()}" />
           <camunda:formField id="userName" label="Username" type="string" defaultValue="none" />
           <camunda:formField id="geoLat" label="Geo Location Latitude" type="string" defaultValue="none" />
           <camunda:formField id="geoLng" label="Geo Location Longitude" type="string" defaultValue="none" />
