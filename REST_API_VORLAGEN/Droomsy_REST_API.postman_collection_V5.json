@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "4416a087-c916-4c84-95fc-d88483f440d0",
+		"name": "Droomsy_REST_API Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://digibp.herokuapp.com/engine-rest/process-definition/key/Booking_Process/tenant-id/BP32/submit-form",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"businessKey\": \"Key7\",\r\n\"userName\": \"roomking76\"\r\n}"
+				},
+				"url": {
+					"raw": "https://niedelkuchen.herokuapp.com/engine-rest/process-definition/key/Booking_Process/submit-form",
+					"protocol": "https",
+					"host": [
+						"niedelkuchen",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"process-definition",
+						"key",
+						"Booking_Process",
+						"submit-form"
+					]
+				},
+				"description": "Start BookingProcess"
+			},
+			"response": []
+		},
+		{
+			"name": "Start",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"messageName\": \"Message_To_Start\",\n\"businessKey\": \"Key7\",\n\"processVariables\": {\n\"geoLng\": {\"value\": \"8,32149\", \"type\": \"String\"},\n\"geoLat\": {\"value\": \"47,22239\", \"type\": \"String\"},\n\"startdatetime\": {\"value\": \"2021-05-06 11:00:00.000000\", \"type\": \"String\"},\n\"enddatetime\": {\"value\": \"2021-05-06 13:00:00.000000\", \"type\": \"String\"}\n}\n}"
+				},
+				"url": {
+					"raw": "https://niedelkuchen.herokuapp.com/engine-rest/message",
+					"protocol": "https",
+					"host": [
+						"niedelkuchen",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hotel Selection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"messageName\": \"Message_To_Hotel_Selection\",\n\"businessKey\": \"Key7\",\n\"processVariables\": {\n\"Hotel Selection\": {\"value\": \"Hotel Altstadt\", \"type\": \"String\"}\n}\n}"
+				},
+				"url": {
+					"raw": "https://niedelkuchen.herokuapp.com/engine-rest/message",
+					"protocol": "https",
+					"host": [
+						"niedelkuchen",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Booking Feature",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"messageName\": \"Message_To_Booking_Features\",\n\"businessKey\": \"Key7\",\n\"processVariables\": {\n\"BookingFeature 1\": {\"value\": \"Spa\", \"type\": \"String\"},\n\"BookingFeature 2\": {\"value\": \"Gym\", \"type\": \"String\"},\n\"BookingFeature 3\": {\"value\": \"Parking\", \"type\": \"String\"}\n}\n}"
+				},
+				"url": {
+					"raw": "https://niedelkuchen.herokuapp.com/engine-rest/message",
+					"protocol": "https",
+					"host": [
+						"niedelkuchen",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Booking Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"messageName\": \"Message_To_Booking_Request\",\n\"businessKey\": \"Key7\",\n\"processVariables\": {\n\"BookingConfirmation\": {\"value\": true, \"type\": \"Boolean\"}\n}\n}"
+				},
+				"url": {
+					"raw": "https://niedelkuchen.herokuapp.com/engine-rest/message",
+					"protocol": "https",
+					"host": [
+						"niedelkuchen",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
