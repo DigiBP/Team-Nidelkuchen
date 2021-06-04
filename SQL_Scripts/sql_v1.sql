@@ -5,7 +5,8 @@ CREATE TABLE usersearch (
 	geoLat VARCHAR ( 50 ),
 	startDateTime timestamp,
 	endDateTime timestamp,
-	created_on timestamp NOT NULL
+	created_on timestamp NOT NULL,
+	updated_at timestamp NOT NULL
 );
 DROP Table usersearch;
 

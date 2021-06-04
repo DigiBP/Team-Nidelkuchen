@@ -1,0 +1,21 @@
+select * from usersearch;
+select * from assetlist;
+
+
+SET TIMEZONE='Europe/Berlin';
+
+
+DO $$
+BEGIN
+IF EXISTS (select * from usersearch where businesskey='BK_00XX') THEN
+   update usersearch set geolng=3.211, geolat=80.222,updated_at=NOW() where businesskey='BK_00XX';
+ELSE
+   insert into usersearch values('BK_00XX','USERNAME',6.111,160.222,'2021-05-06 11:00:00','2021-05-06 11:00:00',NOW(),NOW());
+END IF;
+END $$;
+
+
+SELECT assetID,Latitude, Longitude, SQRT(
+    POW(111.2 * (latitude - 47.3778579), 2) +
+    POW(111.2 * (8.5381339 - longitude) * COS(latitude / 57.3), 2)) AS distance
+FROM assetlist where ('2021-05-10 14:00:00.000000' BETWEEN AvailableFrom AND AvailableTo) AND '2021-05-10 16:00:00.000000' BETWEEN  AvailableFrom AND AvailableTo  ORDER BY distance LIMIT 7;
