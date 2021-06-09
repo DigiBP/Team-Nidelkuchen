@@ -32,6 +32,7 @@
         <bpmn:flowNodeRef>Gateway_1g3qfvp</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0zgdr1g</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_02f69q4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0a9f75v</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:intermediateCatchEvent id="Event_0jtya4o" name="user search variables received">
@@ -195,7 +196,10 @@
 "BookingFeatureGym":BookingFeatureGym,
 "BookingFeaturePark":BookingFeaturePark,
 "businessKey":businessKey,
-"assetSelected":assetSelected});</camunda:script>
+"assetSelected":assetSelected,
+"userName":userName,
+"startDateTime":startDateTime,
+"endDateTime":endDateTime});</camunda:script>
             </camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -221,21 +225,16 @@
       <bpmn:outgoing>Flow_1dano8g</bpmn:outgoing>
       <bpmn:outgoing>Flow_163n7dc</bpmn:outgoing>
       <bpmn:outgoing>Flow_1nlwy25</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1k5adcb</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:serviceTask id="Activity_0zgdr1g" name="confirm booking">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">https://hook.integromat.com/otk9jzwlxsnua6mshpcnrsdbplo2ywhn</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/q815286akl2ymcyh9sud3v7sgduz9w2z</camunda:inputParameter>
             <camunda:inputParameter name="payload">
               <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
-"BookingFeatureBed":BookingFeatureBed,
-"BookingFeatureBath":BookingFeatureBath,
-"BookingFeatureSpa":BookingFeatureSpa,
-"BookingFeatureGym":BookingFeatureGym,
-"BookingFeaturePark":BookingFeaturePark,
-"businessKey":businessKey,
-"assetSelected":assetSelected});</camunda:script>
+"businessKey":businessKey});</camunda:script>
             </camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -253,6 +252,12 @@
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_02f69q4" name="booking request completed">
       <bpmn:incoming>Flow_094ewqz</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1k5adcb" name="no, end process" sourceRef="Gateway_1g3qfvp" targetRef="Event_0a9f75v">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${BookingConfirmation == "end"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_0a9f75v">
+      <bpmn:incoming>Flow_1k5adcb</bpmn:incoming>
     </bpmn:endEvent>
   </bpmn:process>
   <bpmn:message id="Message_0frz8ya" />
@@ -356,6 +361,14 @@
         <di:waypoint x="2140" y="450" />
         <di:waypoint x="2212" y="450" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1k5adcb_di" bpmnElement="Flow_1k5adcb">
+        <di:waypoint x="1880" y="475" />
+        <di:waypoint x="1880" y="540" />
+        <di:waypoint x="1972" y="540" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1890" y="493" width="79" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_168yqzh_di" bpmnElement="Event_0jtya4o">
         <dc:Bounds x="502" y="432" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -421,6 +434,9 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2191" y="396" width="80" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0a9f75v_di" bpmnElement="Event_0a9f75v">
+        <dc:Bounds x="1972" y="522" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1t16v0l_di" bpmnElement="Participant_1t16v0l" isHorizontal="true">
         <dc:Bounds x="160" y="790" width="2130" height="60" />

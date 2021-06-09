@@ -1,0 +1,59 @@
+select * from usersearch;
+select * from assetlist;
+
+
+SET TIMEZONE='Europe/Berlin';
+
+
+DO $$
+BEGIN
+IF EXISTS (select * from usersearch where businesskey='BK_00XX') THEN
+   update usersearch set geolng=3.211, geolat=80.222,updated_at=NOW() where businesskey='BK_00XX';
+ELSE
+   insert into usersearch values('BK_00XX','USERNAME',6.111,160.222,'2021-05-06 11:00:00','2021-05-06 11:00:00',NOW(),NOW());
+END IF;
+END $$;
+
+
+SELECT assetID,hostname,adr_street,adr_streetnr, adr_zip,adr_city, SQRT(
+    POW(111.2 * (latitude - 47.22239), 2) +
+    POW(111.2 * (8.32149 - longitude) * COS(latitude / 57.3), 2)) AS distance
+FROM assetlist where ('2021-05-07 11:00:00.000000' BETWEEN AvailableFrom AND AvailableTo) AND '2021-05-07 13:00:00.000000' BETWEEN  AvailableFrom AND AvailableTo  ORDER BY distance LIMIT 7;
+
+
+
+SELECT assetid,
+roomprice,
+cast(bedprice as DECIMAL)*1 as bedprice,
+cast(bathprice as DECIMAL)*1 as bathprice,
+cast(spaprice as DECIMAL)*1 as spaprice,
+cast(gymprice as DECIMAL)*1 as gymprice,
+cast(parkingprice as DECIMAL)*1 as parkprice,
+cast(roomprice as DECIMAL) + cast(bedprice as DECIMAL)*1 + cast(bathprice as DECIMAL)*1 + cast(spaprice as DECIMAL)*1 + cast(parkingprice as DECIMAL)*1 + cast(gymprice as DECIMAL)*1 AS Total
+    FROM assetlist where assetid = '100022';
+
+drop table bookingstatus
+	
+CREATE TABLE bookingstatus (
+	businessKey VARCHAR ( 50 ) PRIMARY KEY,
+	status VARCHAR (50) NOT NULL,
+	userName VARCHAR ( 50 ) NOT NULL,
+	assetID VARCHAR ( 50 ),
+	startDateTime timestamp,
+	endDateTime timestamp,
+	pricetotal VARCHAR ( 50 ),
+	updated_at timestamp NOT NULL
+);
+
+
+DO $$
+BEGIN
+IF EXISTS (select * from bookingstatus where businesskey='BK_001') THEN
+   update bookingstatus set businessKey='BK_001',status='onHold', userName='username', assetID='assetID', startDateTime='2021-05-07 11:00:00.000000', endDateTime='2021-05-07 11:00:00.000000', pricetotal='10000',updated_at=NOW() where businesskey='BK_001';
+ELSE
+   insert into bookingstatus values('BK_001','onHold','username2','assetID','2021-05-07 11:00:00.000000','2021-05-07 11:00:00.000000','100000',NOW());
+END IF;
+END $$;
+
+update bookingstatus set status='booked' where businesskey = 'BK_0040';
+select * from bookingstatus;

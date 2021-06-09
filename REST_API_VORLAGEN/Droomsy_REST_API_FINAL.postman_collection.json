@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "04131a16-8c99-4801-bff1-5c1753016109",
+		"name": "Droomsy_REST_API_FINAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "#1 initiation message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"businessKey\": \"BK_T0001\"\r\n}"
+				},
+				"url": {
+					"raw": "https://niedelkuchen.herokuapp.com/engine-rest/process-definition/key/Booking_Process/submit-form",
+					"protocol": "https",
+					"host": [
+						"niedelkuchen",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"process-definition",
+						"key",
+						"Booking_Process",
+						"submit-form"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "#2 search variables",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"messageName\": \"Message_To_Start\",\n\"businessKey\": \"BK_T0001\",\n\"processVariables\": {\n\"businessKey\": {\"value\": \"BK_T0001\", \"type\": \"String\"},\n\"userName\": {\"value\": \"UserA\", \"type\": \"String\"},\n\"geoLng\": {\"value\": \"8.5381339\", \"type\": \"String\"},\n\"geoLat\": {\"value\": \"47.3778579\", \"type\": \"String\"},\n\"startDateTime\": {\"value\": \"2021-06-10 14:00:00.000000\", \"type\": \"String\"},\n\"endDateTime\": {\"value\": \"2021-06-10 16:00:00.000000\", \"type\": \"String\"}\n}\n}"
+				},
+				"url": {
+					"raw": "https://niedelkuchen.herokuapp.com/engine-rest/message",
+					"protocol": "https",
+					"host": [
+						"niedelkuchen",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "#3 assetID",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"messageName\": \"Message_To_Hotel_Selection\",\n\"businessKey\": \"BK_0049\",\n\"processVariables\": {\n\"assetSelected\": {\"value\": \"100018\", \"type\": \"String\"}\n}\n}"
+				},
+				"url": {
+					"raw": "https://niedelkuchen.herokuapp.com/engine-rest/message",
+					"protocol": "https",
+					"host": [
+						"niedelkuchen",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "#4 feature selection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"messageName\": \"Message_To_Booking_Features\",\n\"businessKey\": \"BK_0049\",\n\"processVariables\": {\n\"BookingFeatureBed\": {\"value\": \"1\", \"type\": \"String\"},\n\"BookingFeatureBath\": {\"value\": \"1\", \"type\": \"String\"},\n\"BookingFeatureSpa\": {\"value\": \"1\", \"type\": \"String\"},\n\"BookingFeatureGym\": {\"value\": \"1\", \"type\": \"String\"},\n\"BookingFeaturePark\": {\"value\": \"1\", \"type\": \"String\"}\n}\n}"
+				},
+				"url": {
+					"raw": "https://niedelkuchen.herokuapp.com/engine-rest/message",
+					"protocol": "https",
+					"host": [
+						"niedelkuchen",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "#5 booking decision",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"messageName\": \"Message_To_Booking_Request\",\n\"businessKey\": \"BK_0049\",\n\"processVariables\": {\n\"BookingConfirmation\": {\"value\": \"book\", \"type\": \"String\"}\n}\n}"
+				},
+				"url": {
+					"raw": "https://niedelkuchen.herokuapp.com/engine-rest/message",
+					"protocol": "https",
+					"host": [
+						"niedelkuchen",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,3 +1,16 @@
+CREATE TABLE bookingstatus (
+	businessKey VARCHAR ( 50 ) PRIMARY KEY,
+	userName VARCHAR ( 50 ) NOT NULL,
+	assetID VARCHAR ( 50 ),
+	startDateTime timestamp,
+	endDateTime timestamp,
+	pricetotal VARCHAR ( 50 ),
+	updated_at timestamp NOT NULL
+);
+
+-----------------------------
+
+
 CREATE TABLE usersearch (
 	businessKey VARCHAR ( 50 ) PRIMARY KEY,
 	userName VARCHAR ( 50 ) NOT NULL,
